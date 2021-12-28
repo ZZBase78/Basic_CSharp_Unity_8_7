@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 namespace ZZBase.Lession07
 {
@@ -27,7 +28,7 @@ namespace ZZBase.Lession07
             List<int> result = new List<int>();
             for (int i = 0; i < count; i++)
             {
-                result.Add(Random.Range(0, maxInt));
+                result.Add(UnityEngine.Random.Range(0, maxInt));
             }
             return result;
         }
@@ -80,6 +81,14 @@ namespace ZZBase.Lession07
         public Dictionary<T, int> SortedFrequencyArrayLinqDelegate<T>(List<T> list)
         {
             Dictionary<T, int> dictionary = list.GroupBy(element => element).OrderBy(delegate (IGrouping<T,T> g) { return g.Key; }).ToDictionary(g => g.Key, g => g.Count());
+
+            return dictionary;
+
+        }
+
+        public Dictionary<T, int> SortedFrequencyArrayLinqDelegateParam<T>(List<T> list, Func<IGrouping<T, T>, T> delegat)
+        {
+            Dictionary<T, int> dictionary = list.GroupBy(element => element).OrderBy(delegat).ToDictionary(g => g.Key, g => g.Count());
 
             return dictionary;
 
